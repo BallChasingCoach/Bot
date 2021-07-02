@@ -56,4 +56,4 @@ async def packs(ctx, *args):
     await ctx.send(embed=formattedOutput)
     
 if __name__ == "__main__":
-    bot.run(getenv("BOTTOKENDEV"))
+    bot.run(getenv("BOTTOKEN"))
