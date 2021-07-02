@@ -54,5 +54,6 @@ async def packs(ctx, *args):
             entry['difficulty'])) 
             for index, entry in enumerate(data) if index < 10]
     await ctx.send(embed=formattedOutput)
-
-bot.run(getenv("BOTTOKENDEV"))
+    
+if __name__ == "__main__":
+    bot.run(getenv("BOTTOKENDEV"))
