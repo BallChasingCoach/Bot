@@ -5,6 +5,7 @@ from os import getenv
 import requests
 import json
 import sys
+from HelperFunctions import *
 
 load_dotenv()
 BASE_URL = 'https://ballchasingcoach.com/api/v1/'
@@ -38,21 +39,23 @@ async def packs(ctx, *args):
     data = response.json()['data']
     formattedOutput = discord.Embed(title="Found Training Packs", color=discord.Color.blue())
     if isVerbose:
-        [formattedOutput.add_field(name="Pack #{}".format(index + 1), value="Name: {}\nCreator: {}\nCode: {}\nDifficulty: {}\nPlatforms: {}\nNotes: {}\nVideo: {}".format(
+        [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}\n{}\nNotes: {}\n{}".format(
             entry['name'],
-            entry['creator'], 
             entry['code'], 
-            entry['difficulty'], 
+            getEmojiForDifficulty(entry['difficulty']), 
             entry['platform'],
             entry['notes'],
             entry['videoUrl'])) 
-            for index, entry in enumerate(data) if index < 5]
+            for index, entry in enumerate(data) if index < 6]
+        formattedOutput.set_footer(text='This query returns a maximum of 6 results, refine the search of check #browse-packs for more')
     else:
-        [formattedOutput.add_field(name="Pack #{}".format(index + 1), value="Name: {}\nCode: {}\nDifficulty: {}".format(
+        [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}".format(
             entry['name'],
             entry['code'], 
-            entry['difficulty'])) 
-            for index, entry in enumerate(data) if index < 10]
+            getEmojiForDifficulty(entry['difficulty'])
+            )) 
+            for index, entry in enumerate(data) if index < 12]
+        formattedOutput.set_footer(text='This query returns a maximum of 12 results, refine the search of check #browse-packs for more')
     await ctx.send(embed=formattedOutput)
     
 if __name__ == "__main__":
