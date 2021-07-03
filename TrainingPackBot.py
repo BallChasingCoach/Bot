@@ -52,8 +52,7 @@ async def packs(ctx, *args):
         [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}".format(
             entry['name'],
             entry['code'], 
-            getEmojiForDifficulty(entry['difficulty'])
-            )) 
+            getEmojiForDifficulty(entry['difficulty']))) 
             for index, entry in enumerate(data) if index < 12]
         formattedOutput.set_footer(text='This query returns a maximum of 12 results, refine the search of check #browse-packs for more')
     await ctx.send(embed=formattedOutput)
