@@ -1,4 +1,33 @@
+import discord
 
+def getFlagsFromArgs(flags, args):
+    for i in range(len(args) -1, -1, -1):
+        arg = args[i]
+        values = arg.split("=")
+        if values[0] in flags:
+            flags[values[0]] = values[1]
+            args.remove(arg)
+
+def getFormattedPacksOutput(data, isVerbose):
+    formattedOutput = discord.Embed(title="Found Training Packs", color=discord.Color.blue())
+    if isVerbose:
+        [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}\n{}\nNotes: {}\n{}".format(
+            entry['name'],
+            entry['code'], 
+            getEmojiForDifficulty(entry['difficulty']), 
+            entry['platform'],
+            entry['notes'],
+            entry['videoUrl'])) 
+            for index, entry in enumerate(data) if index < 6]
+        formattedOutput.set_footer(text='This query returns a maximum of 6 results, refine the search or check #browse-packs for more')
+    else:
+        [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}".format(
+            entry['name'],
+            entry['code'], 
+            getEmojiForDifficulty(entry['difficulty']))) 
+            for index, entry in enumerate(data) if index < 12]
+        formattedOutput.set_footer(text='This query returns a maximum of 12 results, refine the search or check #browse-packs for more')
+    return formattedOutput
 
 def getEmojiForDifficulty(difficulty) -> str:
     emojis = { 'Supersonic Legend': '<:Supersonic_Legend:849650907364982824>',
