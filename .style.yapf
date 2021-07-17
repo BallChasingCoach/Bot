@@ -1,0 +1,5 @@
+[style]
+based_on_style = google
+column_limit = 120
+split_complex_comprehension = true
+SPLIT_ALL_TOP_LEVEL_COMMA_SEPARATED_VALUES = true
