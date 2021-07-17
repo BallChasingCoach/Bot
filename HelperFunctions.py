@@ -10,6 +10,11 @@ def getFlagsFromArgs(flags, args):
 
 def getFormattedPacksOutput(data, isVerbose):
     formattedOutput = discord.Embed(title="Found Training Packs", color=discord.Color.blue())
+
+    if(len(data) == 0):
+        formattedOutput.add_field(name="No Packs Found", value="Try using only keywords or flags - !help packs")
+        return formattedOutput
+
     if isVerbose:
         [formattedOutput.add_field(name="{}".format(entry['creator']), value="{}\n{}\n{}\n{}\nNotes: {}\n{}".format(
             entry['name'],
