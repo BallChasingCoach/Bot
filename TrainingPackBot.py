@@ -9,13 +9,9 @@ from HelperFunctions import *
 
 load_dotenv()
 isProd = getenv("BOTTOKENDEV") == None
-BASE_URL = 'https://ballchasingcoach.com/api/v1/'
-headers = {
-    'Authorization': 'Bearer ' + str(getenv("APIBEARER")),
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-}
 bot = commands.Bot(command_prefix="!" if isProd else "~", description="Custom bot to find training packs and run the Wayprotein discord made by Daelisk")
+BASE_URL = ''
+headers = {}
 
 @bot.event
 async def  on_ready():
@@ -55,4 +51,10 @@ async def packs(ctx, *args, help='Usage: `!packs`\t`!packs double tap creator=wa
     await ctx.send(embed=formattedOutput)
     
 if __name__ == "__main__":
+    BASE_URL = 'https://ballchasingcoach.com/api/v1/'
+    headers = {
+    'Authorization': 'Bearer ' + str(getenv("APIBEARER")),
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    }
     bot.run(getenv("BOTTOKEN") if isProd else getenv("BOTTOKENDEV"))
