@@ -16,3 +16,4 @@ class BotStrings:
     SORT_ARGUEMENTS = "Sort arguement must be '{}' "
     NO_RESULTS = "No {} found"
     CONTACT_ADMINS = "Please Contact Bot and API Administrators (Daelisk#0001 & onlyray#9285)"
+    TRY_REDUCED_PAGES = "Try reducing the page number."
