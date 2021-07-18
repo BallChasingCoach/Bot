@@ -48,13 +48,14 @@ def getFormattedPacksOutput(data, isVerbose):
 def getFormattedTagsOutput(data):
     formattedOutput = discord.Embed(title=BotStrings.LIST_OF_SEARCHABLE.format('tags'), color=discord.Color.blue())
     if len(data) == 0:
-        formattedOutput.add_field(name=BotStrings.NO_RESULTS.format('tags'),
-                                  value="Please Contact Bot and API Administrators (Daelisk#0001 & onlyray#9285")
+        formattedOutput.add_field(name=BotStrings.NO_RESULTS.format('tags'), value=BotStrings.TRY_REDUCED_PAGES)
         return formattedOutput
 
     tagsString = "".join(
         ['**{}** : {}\n'.format(tag["name"], tag['counts']['packs']) for index, tag in enumerate(data)])
     formattedOutput.add_field(name="Tag : Count", value=tagsString)
+    formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(15) +
+                               ' Change page number for more results `page=2`')
     return formattedOutput
 
 
@@ -62,8 +63,7 @@ def getFormattedCreatorsOutput(data):
     formattedOutput = discord.Embed(title=BotStrings.LIST_OF_SEARCHABLE.format('creators'), color=discord.Color.blue())
 
     if (len(data) == 0):
-        formattedOutput.add_field(name=BotStrings.NO_RESULTS.format('creators'),
-                                  value="Please Contact Bot and API Administrators (Daelisk#0001 & onlyray#9285)")
+        formattedOutput.add_field(name=BotStrings.NO_RESULTS.format('creators'), value=BotStrings.TRY_REDUCED_PAGES)
         return formattedOutput
 
     creatorsString = "".join(
