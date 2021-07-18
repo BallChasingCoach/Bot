@@ -6,6 +6,7 @@ import requests
 import json
 import sys
 from HelperFunctions import *
+from BotStrings import *
 
 load_dotenv()
 isProd = getenv("BOTTOKENDEV") == None
@@ -17,7 +18,7 @@ headers = {}
 
 @bot.event
 async def on_ready():
-    print("Ready !")
+    print("Ready {}".format(bot.command_prefix))
 
 
 @bot.command()
@@ -34,12 +35,12 @@ async def allpacks(ctx, description="Get The Spreadsheet"):
 @bot.command()
 async def tags(ctx, *args, descritption="Get the list of tags"):
     flags = {'sort': '', 'page': 1, 'order': 'desc'}
-    getFlagsFromArgs(flags, args)
+    getFlagsFromArgs(flags, list(args))
     errorText = ""
     if flags['order'] != 'desc' and flags['order'] != 'asc':
-        errorText = "Order arguement must be 'asc' or 'desc' "
+        errorText += BotStrings.ORDER_ASCENDING_DESCENDING
     if flags['sort'] != "" and flags['sort'] != 'packs':
-        errorText = errorText + "Sort arguement must be 'packs' "
+        errorText += BotStrings.SORT_ARGUEMENTS.format('packs')
     if len(errorText) > 0:
         await ctx.send(errorText)
         return
@@ -50,18 +51,19 @@ async def tags(ctx, *args, descritption="Get the list of tags"):
     await ctx.send(embed=formattedOutput)
 
 
-# @bot.command()
-# async def creators(ctx, descritption="Get the list of creators"):
-#     response = requests.request('GET', BASE_URL + 'creators', headers=headers)
-#     flags = {'sort': '', 'page': 1, 'order': 'desc'}
-#     getFlagsFromArgs(flags, args)
-#     errorText = ""
-#     if flags['order'] != 'desc' and flags['order'] != 'asc':
-#         errorText = "Order arguement must be 'asc' or 'desc' "
-#     if flags['sort'] != "" and flags['sort'] != 'packs':
-#         errorText = errorText + "Sort arguement must be 'packs' "
-#     formattedOutput = discord.Embed(title="Here is a list of creators you can search by", color=discord.Color.blue())
-#     formattedOutput.add_field(name="Creators", value=str(['{}\n'.format(creator) for creator in enumerate(response.json()['data'])]))
+@bot.command()
+async def creators(ctx, *args, descritption="Get the list of creators"):
+    flags = {'sort': '', 'page': 1, 'order': 'desc'}
+    getFlagsFromArgs(flags, list(args))
+    errorText = ""
+    if flags['order'] != 'desc' and flags['order'] != 'asc':
+        errorText += BotStrings.ORDER_ASCENDING_DESCENDING
+    if flags['sort'] != "" and flags['sort'] != 'name':
+        errorText += BotStrings.SORT_ARGUEMENTS.format('name')
+    flags['sort'] = '' if flags['sort'] == 'name' else 'packs'
+    response = requests.request('GET', BASE_URL + 'creators', headers=headers, params=flags)
+    formattedOutput = getFormattedCreatorsOutput(response.json()['data'])
+    await ctx.send(embed=formattedOutput)
 
 
 @bot.command()
@@ -77,9 +79,9 @@ async def packs(ctx,
     getFlagsFromArgs(flags, args)
     errorText = ""
     if flags['order'] != 'desc' and flags['order'] != 'asc':
-        errorText = "Order arguement must be 'asc' or 'desc' "
+        errorText += BotStrings.ORDER_ASCENDING_DESCENDING
     if flags['sort'] != "" and flags['sort'] != 'difficulty':
-        errorText = errorText + "Sort arguement must be 'difficulty' "
+        errorText += BotStrings.SORT_ARGUEMENTS.format('difficulty')
     if len(errorText) > 0:
         await ctx.send(errorText)
         return
