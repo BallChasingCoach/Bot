@@ -12,8 +12,7 @@ from BotStrings import *
 
 load_dotenv()
 isProd = getenv("BOTTOKENDEV") == None
-bot = commands.Bot(command_prefix="!" if isProd else "~",
-                   description="Custom bot to find training packs and run the Wayprotein discord made by Daelisk")
+bot = commands.Bot(command_prefix="!" if isProd else "~", description=BotStrings.HELP)
 slash = SlashCommand(bot, sync_commands=True)
 BASE_URL = ''
 headers = {}
@@ -35,15 +34,24 @@ async def ping(ctx):
     await ctx.send('**pong**')
 
 
-@slash.slash(name='allpacks', guild_ids=guild_ids, description="Get The Spreadsheet")
+@slash.slash(name='server', guild_ids=guild_ids, description=BotStrings.SERVER_DESC, options=None)
+async def _server(ctx):
+    await server(ctx)
+
+
+@bot.command(description=BotStrings.SERVER_DESC)
+async def server(ctx):
+    await ctx.send(BotStrings.SERVER_MSG)
+
+
+@slash.slash(name='allpacks', guild_ids=guild_ids, description=BotStrings.ALLPACKS_DESC)
 async def _allpacks(ctx):
     await allpacks(ctx)
 
 
-@bot.command()
-async def allpacks(ctx, description="Get The Spreadsheet"):
-    await ctx.send(
-        'https://docs.google.com/spreadsheets/d/1riHFd8KBBO9IqmbUbKPzgSDVpKOQXcb2UYaUUwFDs6M/edit#gid=1648371681')
+@bot.command(description=BotStrings.ALLPACKS_DESC)
+async def allpacks(ctx):
+    await ctx.send(BotStrings.ALLPACKS_LINK)
 
 
 @slash.slash(name='tags',
@@ -69,8 +77,8 @@ async def _tags(ctx, **kwargs):
     await tags(ctx, *[f"{key}={value}" for key, value in kwargs.items()])
 
 
-@bot.command()
-async def tags(ctx, *args, descritption="Get the list of tags"):
+@bot.command(description=BotStrings.TAGS_DESC)
+async def tags(ctx, *args):
     flags = {'sort': '', 'page': 1, 'order': 'desc'}
     getFlagsFromArgs(flags, list(args))
     errorText = ""
@@ -110,8 +118,8 @@ async def _creators(ctx, **kwargs):
     await creators(ctx, *[f"{key}={value}" for key, value in kwargs.items()])
 
 
-@bot.command()
-async def creators(ctx, *args, descritption="Get the list of creators"):
+@bot.command(description=BotStrings.CREATORS_DESC)
+async def creators(ctx, *args):
     flags = {'sort': '', 'page': 1, 'order': 'desc'}
     getFlagsFromArgs(flags, list(args))
     errorText = ""
@@ -151,11 +159,8 @@ async def _packs(ctx, **kwargs):
     await packs(ctx, *[f"{key}={value}" if key != 'query' else f"{value}" for key, value in kwargs.items()])
 
 
-@bot.command()
-async def packs(ctx,
-                *args,
-                help='Usage: `!packs`\t`!packs double tap creator=wayprotein sort=difficulty order=asc`',
-                description="Get Training Packs"):
+@bot.command(description=BotStrings.PACKS_DESC, help=BotStrings.PACKS_HELP)
+async def packs(ctx, *args):
     # flags map on possible args/options. https://ballchasingcoach.com/docs#apiv1training-packs gives list
     flags = {'verbose': False, 'sort': '', 'page': 1, 'order': 'desc', 'creator': ''}
     oldArgsLen = len(args)
