@@ -20,8 +20,9 @@ def getFormattedPacksOutput(data, isVerbose):
         return formattedOutput
 
     if isVerbose:
+        MAX_RESULTS = 6
         for index, entry in enumerate(data):
-            if index >= 6:
+            if index >= MAX_RESULTS:
                 break
             nameString = entry['creator']
             valueString = "{}\n{}\n{}\n{}\nNotes: {}\n{}".format(entry['name'],
@@ -31,17 +32,18 @@ def getFormattedPacksOutput(data, isVerbose):
                                                                  entry['notes'],
                                                                  entry['videoUrl'])
             formattedOutput.add_field(name=nameString, value=valueString)
-        formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(6) +
-                                   ' Refine the search or check #browse-packs for more')
+        formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
+                                   BotStrings.PACKS_SEARCH_REFINE)
     else:
+        MAX_RESULTS = 12
         for index, entry in enumerate(data):
-            if index >= 12:
+            if index >= MAX_RESULTS:
                 break
             nameString = entry['creator']
             valueString = "{}\n{}\n{}".format(entry['name'], entry['code'], getEmojiForDifficulty(entry['difficulty']))
             formattedOutput.add_field(name=nameString, value=valueString)
-        formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(12) +
-                                   ' Refine the search or check #browse-packs for more')
+        formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
+                                   BotStrings.PACKS_SEARCH_REFINE)
     return formattedOutput
 
 
@@ -54,7 +56,8 @@ def getFormattedTagsOutput(data):
     tagsString = "".join(
         ['**{}** : {}\n'.format(tag["name"], tag['counts']['packs']) for index, tag in enumerate(data)])
     formattedOutput.add_field(name="Tag : Count", value=tagsString)
-    formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(15) +
+    MAX_RESULTS = 15
+    formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
                                ' Change page number for more results `page=2`')
     return formattedOutput
 
@@ -69,7 +72,8 @@ def getFormattedCreatorsOutput(data):
     creatorsString = "".join(
         ["**{}** : {}\n".format(creator['name'], creator['counts']['packs']) for index, creator in enumerate(data)])
     formattedOutput.add_field(name="Creator : Packs Count", value=creatorsString)
-    formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(15) +
+    MAX_RESULTS = 15
+    formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
                                ' Change page number for more results `page=2`')
     return formattedOutput
 
