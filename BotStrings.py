@@ -11,7 +11,7 @@ class BotStrings:
     # Packs
     PACKS_DESC = "Get training packs according to search criteria. Complex search suggest using /packs as guide."
     PACKS_HELP = "```**How to search**\n`!packs [Enter search terms here]` \n\nSearch term can include keywords from the title, creator, difficulty, or any combination \n\nexamples \n```!packs Wayprotein \n!packs Wayprotein Air Roll\n !Packs \"Wayprotein Air Roll Diamond\"```Optional Flags - \n *Page*: Returns that page of results from the Packs Search. Default 1 `page=2` \n*Creator*: Limit by pack creator `creator=Wayprotein` \n*Sort*: Choose how to sort the returned packs. Default order is order entered in Packs list. Current only option is difficulty `sort=difficulty` \n*Order*: Choose whether to start from the top or bottom of the packs returned. Default is descending order `sort=asc` \n*Verbose*: Get more detailed information about the packs returned `verbose` \n\n```!packs wayprotein save verbose sort=difficulty order=asc```"
-
+    PACKS_SEARCH_REFINE = ' Refine the search or read up with !help packs'
     # Creators
     CREATORS_DESC = "Get creators according to search criteria. Complex search suggest using /creators as guide."
     # Tags
