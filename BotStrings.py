@@ -6,7 +6,7 @@ class BotStrings:
 
     # AllPacks
     ALLPACKS_DESC = "Get The Spreadsheet"
-    ALLPACKS_LINK = 'https://docs.google.com/spreadsheets/d/1riHFd8KBBO9IqmbUbKPzgSDVpKOQXcb2UYaUUwFDs6M/edit#gid=1648371681'
+    ALLPACKS_LINK = 'https://prejump.com/training-packs/'
 
     # Packs
     PACKS_DESC = "Get training packs according to search criteria. Complex search suggest using /packs as guide."
