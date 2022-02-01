@@ -1,5 +1,6 @@
 class BotStrings:
     # General
+    WEBSITE_URL = "https://prejump.com/"
     QUERY_MAXIMUM = "This query returns a maximum of {} results."
     LIST_OF_SEARCHABLE = "Here is a list of all {} that can be searched by"
     HELP = "Bot dedicated to accessing Training Packs in Rocket League.\nFurther help can be found in original server"

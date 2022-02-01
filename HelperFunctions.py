@@ -25,7 +25,8 @@ def getFormattedPacksOutput(data, isVerbose):
             if index >= MAX_RESULTS:
                 break
             nameString = entry['creator']
-            valueString = "{}\n{}\n{}\n{}\nNotes: {}\n{}".format(entry['name'],
+            valueString = '[{}]({})\n{}\n{}\n{}\nNotes: {}\n{}'.format(entry['name'],
+                                                                 BotStrings.WEBSITE_URL + entry['code'],
                                                                  entry['code'],
                                                                  getEmojiForDifficulty(entry['difficulty']),
                                                                  entry['platform'],
