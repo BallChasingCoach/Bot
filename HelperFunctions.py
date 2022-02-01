@@ -26,7 +26,7 @@ def getFormattedPacksOutput(data, isVerbose):
                 break
             nameString = entry['creator']
             valueString = '[{}]({})\n{}\n{}\n{}\nNotes: {}\n{}'.format(entry['name'],
-                                                                 BotStrings.WEBSITE_URL + entry['code'],
+                                                                 BotStrings.WEBSITE_URL + 'training-packs/' + entry['code'],
                                                                  entry['code'],
                                                                  getEmojiForDifficulty(entry['difficulty']),
                                                                  entry['platform'],
@@ -41,7 +41,10 @@ def getFormattedPacksOutput(data, isVerbose):
             if index >= MAX_RESULTS:
                 break
             nameString = entry['creator']
-            valueString = "{}\n{}\n{}".format(entry['name'], entry['code'], getEmojiForDifficulty(entry['difficulty']))
+            valueString = "[{}]({})\n{}\n{}".format(entry['name'],
+                                                    BotStrings.WEBSITE_URL + 'training-packs/' + entry['code'],
+                                                    entry['code'],
+                                                    getEmojiForDifficulty(entry['difficulty']))
             formattedOutput.add_field(name=nameString, value=valueString)
         formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
                                    BotStrings.PACKS_SEARCH_REFINE)

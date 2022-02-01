@@ -44,6 +44,15 @@ async def server(ctx):
     await ctx.send(BotStrings.SERVER_MSG)
 
 
+@slash.slash(name='website', guild_ids=guild_ids, description=BotStrings.WEBSITE_DESC)
+async def _website(ctx):
+    await website(ctx)
+
+@bot.command(description=BotStrings.WEBSITE_DESC)
+async def website(ctx):
+    await ctx.send(BotStrings.WEBSITE_URL)
+
+
 @slash.slash(name='allpacks', guild_ids=guild_ids, description=BotStrings.ALLPACKS_DESC)
 async def _allpacks(ctx):
     await allpacks(ctx)
@@ -51,7 +60,7 @@ async def _allpacks(ctx):
 
 @bot.command(description=BotStrings.ALLPACKS_DESC)
 async def allpacks(ctx):
-    await ctx.send(BotStrings.ALLPACKS_LINK)
+    await ctx.send(BotStrings.WEBSITE_URL + 'training-packs')
 
 
 @slash.slash(name='tags',
@@ -161,7 +170,7 @@ async def _packs(ctx, **kwargs):
 
 @bot.command(description=BotStrings.PACKS_DESC, help=BotStrings.PACKS_HELP)
 async def packs(ctx, *args):
-    # flags map on possible args/options. https://ballchasingcoach.com/docs#apiv1training-packs gives list
+    # flags map on possible args/options. https://prejump.com/docs#apiv1training-packs gives list
     flags = {'verbose': False, 'sort': '', 'page': 1, 'order': 'desc', 'creator': ''}
     oldArgsLen = len(args)
     args = [val for val in args if val != 'verbose']
