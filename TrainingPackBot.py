@@ -186,7 +186,7 @@ async def packs(ctx, *args):
 
 
 if __name__ == "__main__":
-    BASE_URL = 'https://ballchasingcoach.com/api/v1/'
+    BASE_URL = 'https://prejump.com/api/v1/'
     headers = {
         'Authorization': 'Bearer ' + str(getenv("APIBEARER")),
         'Content-Type': 'application/json',
