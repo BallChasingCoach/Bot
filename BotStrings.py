@@ -6,8 +6,7 @@ class BotStrings:
     HELP = "Bot dedicated to accessing Training Packs in Rocket League.\nFurther help can be found in original server"
 
     # AllPacks
-    ALLPACKS_DESC = "Get The Spreadsheet"
-    ALLPACKS_LINK = 'https://prejump.com/training-packs/'
+    ALLPACKS_DESC = "Get All The Packs"
 
     # Packs
     PACKS_DESC = "Get training packs according to search criteria. Complex search suggest using /packs as guide."
@@ -21,6 +20,9 @@ class BotStrings:
     # Server
     SERVER_DESC = "Get Server Link"
     SERVER_MSG = "Join the Wayprotein coaching discord here!\nhttps://discord.gg/eY2ycv3W2N"
+
+    # Website
+    WEBSITE_DESC = "Get website link for all your training pack needs"
 
     # Error Strings
     ORDER_ASCENDING_DESCENDING = "Order arguement must be 'asc' or 'desc' "
