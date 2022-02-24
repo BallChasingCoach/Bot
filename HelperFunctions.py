@@ -2,6 +2,29 @@ import discord
 from BotStrings import *
 
 
+def getFormattedHelpOutput(args):
+    formattedOutput = discord.Embed(title='Training Pack Bot Help', color=discord.Color.blue())
+    if args is not None:
+        splitComm = args.split('=')
+        commandNameUpper = args.upper() if len(splitComm) == 1 else splitComm[1]
+        if commandNameUpper == 'PACKS':
+            formattedOutput.add_field(name=commandNameUpper.lower(), value=BotStrings.PACKS_HELP)
+        else:
+            try:
+                formattedOutput.add_field(name=commandNameUpper.lower(),
+                                          value=vars(BotStrings)[commandNameUpper + '_DESC'])
+            except KeyError:
+                return None
+
+    else:
+        for key,value in vars(BotStrings).items():
+            keySplit = key.split('_')
+            if keySplit[0] in BotStrings.COMMAND_OPTIONS and len(keySplit) > 1 and keySplit[1] == 'DESC':
+                formattedOutput.add_field(name=keySplit[0].lower(), value=value)
+
+    return formattedOutput
+
+
 def getFlagsFromArgs(flags, args):
     for i in range(len(args) - 1, -1, -1):
         arg = args[i]
@@ -95,10 +118,8 @@ def getEmojiForDifficulty(difficulty) -> str:
         'Viewer': '<:Viewer:850202932544012309>'
     }
 
-    if difficulty == "":
-        return emojis['Viewer']
     try:
         code = emojis[str(difficulty)]
     except KeyError:
-        return difficulty
+        return emojis['Viewer']
     return code

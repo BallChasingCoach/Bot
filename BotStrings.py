@@ -4,13 +4,12 @@ class BotStrings:
     QUERY_MAXIMUM = "This query returns a maximum of {} results."
     LIST_OF_SEARCHABLE = "Here is a list of all {} that can be searched by"
     HELP = "Bot dedicated to accessing Training Packs in Rocket League.\nFurther help can be found in original server"
-
-    # AllPacks
-    ALLPACKS_DESC = "Get All The Packs"
+    HELP_DESC = "Get the list of available commands"
+    COMMAND_OPTIONS = ['PACKS', 'SERVER', 'ALLPACKS', 'CREATORS', 'TAGS', 'SERVER', 'WEBSITE']
 
     # Packs
     PACKS_DESC = "Get training packs according to search criteria. Complex search suggest using /packs as guide."
-    PACKS_HELP = "```**How to search**\n`!packs [Enter search terms here]` \n\nSearch term can include keywords from the title, creator, difficulty, or any combination \n\nexamples \n```!packs Wayprotein \n!packs Wayprotein Air Roll\n !Packs \"Wayprotein Air Roll Diamond\"```Optional Flags - \n *Page*: Returns that page of results from the Packs Search. Default 1 `page=2` \n*Creator*: Limit by pack creator `creator=Wayprotein` \n*Sort*: Choose how to sort the returned packs. Default order is order entered in Packs list. Current only option is difficulty `sort=difficulty` \n*Order*: Choose whether to start from the top or bottom of the packs returned. Default is descending order `sort=asc` \n*Verbose*: Get more detailed information about the packs returned `verbose` \n\n```!packs wayprotein save verbose sort=difficulty order=asc```"
+    PACKS_HELP = "**How to search**\n`!packs [Enter search terms here]` \n\nSearch term can include keywords from the title, creator, difficulty, or any combination \n\nexamples \n```!packs Wayprotein \n!packs Wayprotein Air Roll\n!packs \"Wayprotein Air Roll Diamond\"```Optional Flags - \n *Page*: Returns that page of results from the Packs Search. Default 1 `page=2` \n*Creator*: Limit by pack creator `creator=Wayprotein` \n*Sort*: Choose how to sort the returned packs. Default order is order entered in Packs list. Current only option is difficulty `sort=difficulty` \n*Order*: Choose whether to start from the top or bottom of the packs returned. Default is descending order `sort=asc` \n*Verbose*: Get more detailed information about the packs returned `verbose` \n\n`!packs wayprotein save verbose sort=difficulty order=asc`"
     PACKS_SEARCH_REFINE = ' Refine the search or read up with !help packs'
     # Creators
     CREATORS_DESC = "Get creators according to search criteria. Complex search suggest using /creators as guide."
