@@ -12,7 +12,7 @@ from BotStrings import *
 
 load_dotenv()
 isProd = getenv("BOTTOKENDEV") == None
-bot = commands.Bot(command_prefix="!" if isProd else "~", description=BotStrings.HELP)
+bot = commands.Bot(command_prefix="!" if isProd else "~", description=BotStrings.HELP, help_command=None)
 slash = SlashCommand(bot, sync_commands=True)
 BASE_URL = ''
 headers = {}
@@ -34,6 +34,30 @@ async def ping(ctx):
     await ctx.send('**pong**')
 
 
+@slash.slash(name='help',
+             description=BotStrings.HELP_DESC,
+             guild_ids=guild_ids,
+             options=[
+                 create_option(required=False,
+                               name='command',
+                               description='The Command you want info for',
+                               option_type=3,
+                               choices=[
+                                   create_choice(name=commandOption.lower(), value=commandOption)
+                                   for commandOption in BotStrings.COMMAND_OPTIONS
+                               ])
+             ])
+async def _help(ctx, **kwargs):
+    await help(ctx, *[f"{key}={value}" for key, value in kwargs.items()])
+
+
+@bot.command()
+async def help(ctx, args=None):
+    formattedOutput = getFormattedHelpOutput(args)
+    if formattedOutput is not None:
+        await ctx.send(embed=formattedOutput)
+
+
 @slash.slash(name='server', guild_ids=guild_ids, description=BotStrings.SERVER_DESC, options=None)
 async def _server(ctx):
     await server(ctx)
@@ -48,19 +72,10 @@ async def server(ctx):
 async def _website(ctx):
     await website(ctx)
 
+
 @bot.command(description=BotStrings.WEBSITE_DESC)
 async def website(ctx):
     await ctx.send(BotStrings.WEBSITE_URL)
-
-
-@slash.slash(name='allpacks', guild_ids=guild_ids, description=BotStrings.ALLPACKS_DESC)
-async def _allpacks(ctx):
-    await allpacks(ctx)
-
-
-@bot.command(description=BotStrings.ALLPACKS_DESC)
-async def allpacks(ctx):
-    await ctx.send(BotStrings.WEBSITE_URL + 'training-packs')
 
 
 @slash.slash(name='tags',
