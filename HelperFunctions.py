@@ -81,7 +81,11 @@ def getFormattedTagsOutput(data):
         return formattedOutput
 
     tagsString = "".join(
-        ['**{}** : {}\n'.format(tag["name"], tag['counts']['packs']) for index, tag in enumerate(data)])
+        ['**[{}]({})** : {}\n'.format(tag["name"], # matched formatting to how you added the link to the packs output in line 51
+                                      # I have not tested this - we will need a way to URL encode it
+                                      # link should resolve to this - https://prejump.com/training-packs?tags=Standard%20Map
+                                      BotStrings.WEBSITE_URL + 'training-packs?tags=' + entry['name'],
+                                      tag['counts']['packs']) for index, tag in enumerate(data)])
     formattedOutput.add_field(name="Tag : Count", value=tagsString)
     MAX_RESULTS = 15
     formattedOutput.set_footer(text=BotStrings.QUERY_MAXIMUM.format(MAX_RESULTS) +
